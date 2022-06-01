@@ -15,6 +15,7 @@ from transformers import PreTrainedTokenizerFast, GPT2LMHeadModel
 import re
 import urllib.request
 from ChatbotDataset import ChatbotDataset, collate_batch
+from tqdm import tqdm
 
 # Special Tokens for Tokenizer
 Q_TKN = "<usr>"
@@ -58,7 +59,8 @@ Sneg = -1e18
 
 print ("start")
 for epoch in range(epoch):
-    for batch_idx, samples in enumerate(train_dataloader):
+    print("epoch ", epoch , " running...")
+    for batch_idx, samples in tqdm(enumerate(train_dataloader)):
         optimizer.zero_grad()
         token_ids, mask, label = samples
         out = model(token_ids)
