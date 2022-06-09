@@ -235,7 +235,6 @@ if __name__ == "__main__":
         trainer = Trainer.from_argparse_args(
             args,
             accelerator='gpu',
-            devices=1,
             checkpoint_callback=checkpoint_callback, gradient_clip_val=1.0)
         trainer.fit(model)
         logging.info('best model path {}'.format(checkpoint_callback.best_model_path))
