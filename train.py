@@ -11,12 +11,6 @@ from pytorch_lightning.core.lightning import LightningModule
 from torch.utils.data import DataLoader, Dataset
 from transformers.optimization import AdamW, get_cosine_schedule_with_warmup
 from transformers import PreTrainedTokenizerFast, GPT2LMHeadModel
-import urllib.request
-
-urllib.request.urlretrieve(
-    "https://raw.githubusercontent.com/songys/Chatbot_data/master/ChatbotData.csv",
-    filename="Chatbot_data/ChatbotData.csv",
-)
 
 parser = argparse.ArgumentParser(description='Simsimi based on KoGPT-2')
 
@@ -190,7 +184,7 @@ class KoGPT2Chat(LightningModule):
         return torch.LongTensor(data), torch.LongTensor(mask), torch.LongTensor(label)
 
     def train_dataloader(self):
-        data = pd.read_csv('Chatbot_data/ChatbotData.csv')
+        data = pd.read_csv('ChatbotData.csv')
         self.train_set = CharDataset(data, max_len=self.hparams.max_len)
         train_dataloader = DataLoader(
             self.train_set, batch_size=self.hparams.batch_size, num_workers=2,
