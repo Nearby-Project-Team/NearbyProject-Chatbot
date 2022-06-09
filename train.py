@@ -34,9 +34,6 @@ parser.add_argument('--train',
                     default=False,
                     help='for training')
 
-parser.add_argument("--accelerator", default='gpu')
-parser.add_argument("--devices", default=1)
-
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
@@ -237,6 +234,8 @@ if __name__ == "__main__":
         model.train()
         trainer = Trainer.from_argparse_args(
             args,
+            accelerator='gpu',
+            devices=1,
             checkpoint_callback=checkpoint_callback, gradient_clip_val=1.0)
         trainer.fit(model)
         logging.info('best model path {}'.format(checkpoint_callback.best_model_path))
