@@ -1,3 +1,4 @@
+from calendar import EPOCH
 import torch
 import numpy as np
 import pandas as pd
@@ -12,6 +13,8 @@ EOS = "<\e>"
 UNK = "<unk>"
 PAD = "<pad>"
 MASK = "<mask>"
+
+MODEL_NAME = "./checkpoint/Nearby-Model-"
 
 koGPT2_TOKENIZER = PreTrainedTokenizerFast.from_pretrained("skt/kogpt2-base-v2",
             bos_token=BOS, eos_token=EOS, unk_token=UNK,
@@ -35,22 +38,32 @@ learning_rate = 3e-5
 criterion = torch.nn.CrossEntropyLoss(reduction="none")
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
-epoch = 10
+EPOCH = 10
 Sneg = -1e18
 
 print ("start")
-for epoch in range(epoch):
+for epoch in range(EPOCH):
+    print("Epoch ", epoch)
+    loss = None
     for batch_idx, samples in tqdm(enumerate(train_dataloader)):
         optimizer.zero_grad()
         token_ids, mask, label = samples
         out = model(token_ids)
         out = out.logits      #Returns a new tensor with the logit of the elements of input
-        mask_3d = mask.unsqueeze(dim=2).repeat_interleave(repeats=out.shape[2], dim=2)
-        mask_out = torch.where(mask_3d == 1, out, Sneg * torch.ones_like(out))
+        mask_3d = mask.unsqueeze(dim=2).repeat_interleave(repeats=out.shape[2], dim=2).to(device)
+        mask_out = torch.where(mask_3d == 1, out, Sneg * torch.ones_like(out)).to(device)
         loss = criterion(mask_out.transpose(2, 1), label)
         # 평균 loss 만들기 avg_loss[0] / avg_loss[1] <- loss 정규화
         avg_loss = loss.sum() / mask.sum()
         avg_loss.backward()
         # 학습 끝
         optimizer.step()
+    
+    torch.save({
+            'epoch': epoch,
+            'model_state_dict': model.state_dict(),
+            'optimizer_state_dict': optimizer.state_dict(),
+            'loss': loss,
+            }, MODEL_NAME + str(epoch) + ".pt")
+    
 print ("end")
