@@ -69,4 +69,5 @@ for epoch in range(EPOCH):
             'loss': loss,
             }, MODEL_NAME + str(epoch) + ".pt")
     
+    print("Epoch: ", epoch, "loss: ", loss)
 print ("end")
