@@ -61,12 +61,13 @@ for epoch in range(EPOCH):
         # 학습 끝
         optimizer.step()
     
-    torch.save({
-            'epoch': epoch,
-            'model_state_dict': model.state_dict(),
-            'optimizer_state_dict': optimizer.state_dict(),
-            'loss': avg_loss,
-            }, MODEL_NAME + str(epoch + 1) + ".pt")
-    
+    if epoch % 5 == 0:
+        torch.save({
+                'epoch': epoch,
+                'model_state_dict': model.state_dict(),
+                'optimizer_state_dict': optimizer.state_dict(),
+                'loss': avg_loss,
+                }, MODEL_NAME + str(epoch + 1) + ".pt")
+        
     print(f"Epoch {epoch + 1}, loss: {avg_loss:.3f}")
 print ("end")
