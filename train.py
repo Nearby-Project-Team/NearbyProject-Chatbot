@@ -68,5 +68,5 @@ for epoch in range(EPOCH):
             'loss': loss,
             }, MODEL_NAME + str(epoch) + ".pt")
     
-    print("Epoch: ", epoch, "loss: ", np.array(avg_loss))
+    print("Epoch: ", epoch, "loss: ", np.array(avg_loss.to(torch.device('cpu')))[0])
 print ("end")
