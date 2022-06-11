@@ -34,11 +34,11 @@ train_dataloader = DataLoader(train_set, batch_size=16, num_workers=0, shuffle=T
 model.to(device)
 model.train()
 
-learning_rate = 3e-5
+learning_rate = 3e-3
 criterion = torch.nn.CrossEntropyLoss(reduction="none")
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
-EPOCH = 10
+EPOCH = 20
 Sneg = -1e18
 
 print ("start")
