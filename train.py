@@ -44,7 +44,6 @@ Sneg = -1e18
 print ("start")
 for epoch in range(EPOCH):
     print("Epoch ", epoch)
-    loss = None
     for batch_idx, samples in tqdm(enumerate(train_dataloader)):
         optimizer.zero_grad()
         token_ids, mask, label = samples
@@ -69,5 +68,5 @@ for epoch in range(EPOCH):
             'loss': loss,
             }, MODEL_NAME + str(epoch) + ".pt")
     
-    print("Epoch: ", epoch, "loss: ", loss)
+    print("Epoch: ", epoch, "loss: ", avg_loss)
 print ("end")
