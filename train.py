@@ -68,5 +68,5 @@ for epoch in range(EPOCH):
             'loss': loss,
             }, MODEL_NAME + str(epoch) + ".pt")
     
-    print("Epoch: ", epoch, "loss: ", avg_loss)
+    print("Epoch: ", epoch, "loss: ", avg_loss.value)
 print ("end")
