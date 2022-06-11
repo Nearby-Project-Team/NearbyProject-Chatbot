@@ -48,6 +48,7 @@ for epoch in range(EPOCH):
     for batch_idx, samples in tqdm(enumerate(train_dataloader)):
         optimizer.zero_grad()
         token_ids, mask, label = samples
+        token_ids = token_ids.to(device)
         out = model(token_ids)
         out = out.logits      #Returns a new tensor with the logit of the elements of input
         mask_3d = mask.unsqueeze(dim=2).repeat_interleave(repeats=out.shape[2], dim=2).to(device)
