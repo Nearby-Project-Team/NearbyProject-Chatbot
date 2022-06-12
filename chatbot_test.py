@@ -23,6 +23,7 @@ model = GPT2LMHeadModel.from_pretrained('skt/kogpt2-base-v2')
 model_weight = torch.load('./checkpoint/Nearby-Model-16.pt')
 model.load_state_dict(model_weight["model_state_dict"])
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model.cuda()
 
 if __name__ == "__main__":
     with torch.no_grad():
