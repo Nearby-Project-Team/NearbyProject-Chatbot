@@ -22,8 +22,6 @@ koGPT2_TOKENIZER = PreTrainedTokenizerFast.from_pretrained("skt/kogpt2-base-v2",
 model = GPT2LMHeadModel.from_pretrained('skt/kogpt2-base-v2')
 
 Chatbot_Data = pd.read_csv("ChatBotData.csv")
-# Test 용으로 300개 데이터만 처리한다.
-Chatbot_Data = Chatbot_Data[:300]
 Chatbot_Data.head()
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -43,7 +41,7 @@ Sneg = -1e18
 
 print ("start")
 for epoch in range(EPOCH):
-    print("Epoch ", epoch)
+    print("Epoch ", epoch + 1)
     for batch_idx, samples in tqdm(enumerate(train_dataloader)):
         optimizer.zero_grad()
         token_ids, mask, label = samples
