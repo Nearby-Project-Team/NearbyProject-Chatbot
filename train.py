@@ -56,6 +56,7 @@ for epoch in range(EPOCH):
         # 평균 loss 만들기 avg_loss[0] / avg_loss[1] <- loss 정규화
         avg_loss = loss.sum() / mask.sum()
         avg_loss.backward()
+        torch.nn.utils.clip_grad_norm_(model.parameters(), 0.1)
         # 학습 끝
         optimizer.step()
     
