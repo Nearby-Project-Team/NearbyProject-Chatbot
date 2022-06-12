@@ -42,4 +42,4 @@ if __name__ == "__main__":
                 if gen == EOS:
                     break
                 a += gen.replace("▁", " ")
-                print("Chatbot > {}".format(a.strip()))
+            print("Chatbot > {}".format(a.strip()))

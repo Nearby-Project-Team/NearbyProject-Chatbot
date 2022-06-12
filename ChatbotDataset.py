@@ -7,7 +7,7 @@ from transformers import PreTrainedTokenizerFast
 Q_TKN = "<usr>"
 A_TKN = "<sys>"
 BOS = '</s>'
-EOS = '</s>'
+EOS = '</e>'
 MASK = '<unused0>'
 SENT = '<unused1>'
 PAD = '<pad>'
