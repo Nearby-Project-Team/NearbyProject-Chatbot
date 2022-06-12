@@ -34,7 +34,7 @@ if __name__ == "__main__":
                 input_ids = torch.LongTensor(koGPT2_TOKENIZER.encode(Q_TKN + q + SENT + '0' + A_TKN + a)).unsqueeze(dim=0).to(device=device)
                 pred = model(input_ids)
                 pred = pred.logits
-                gen = koGPT2_TOKENIZER.convert_ids_to_tokens(torch.argmax(pred, dim=-1).squeeze().numpy().tolist())[-1]
+                gen = koGPT2_TOKENIZER.convert_ids_to_tokens(torch.argmax(pred, dim=-1).cpu().squeeze().numpy().tolist())[-1]
                 if gen == EOS:
                     break
                 a += gen.replace("▁", " ")
