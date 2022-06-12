@@ -34,7 +34,7 @@ train_dataloader = DataLoader(train_set, batch_size=16, num_workers=0, shuffle=T
 model.to(device)
 model.train()
 
-learning_rate = 3e-3
+learning_rate = 5e-3
 criterion = torch.nn.CrossEntropyLoss(reduction="none")
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
@@ -61,7 +61,7 @@ for epoch in range(EPOCH):
         # 학습 끝
         optimizer.step()
     
-    if epoch % 5 == 0:
+    if (epoch + 1) % 5 == 0:
         torch.save({
                 'epoch': epoch,
                 'model_state_dict': model.state_dict(),
