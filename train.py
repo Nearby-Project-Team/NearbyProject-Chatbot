@@ -8,16 +8,18 @@ from ChatbotDataset import ChatbotDataset, collate_batch
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-BOS = "<\s>"
-EOS = "<\e>"
-UNK = "<unk>"
-PAD = "<pad>"
-MASK = "<mask>"
+U_TKN = '<usr>'
+S_TKN = '<sys>'
+BOS = '</s>'
+EOS = '</s>'
+MASK = '<unused0>'
+SENT = '<unused1>'
+PAD = '<pad>'
 
 MODEL_NAME = "./checkpoint/Nearby-Model-"
 
 koGPT2_TOKENIZER = PreTrainedTokenizerFast.from_pretrained("skt/kogpt2-base-v2",
-            bos_token=BOS, eos_token=EOS, unk_token=UNK,
+            bos_token=BOS, eos_token=EOS, unk_token='<unk>',
             pad_token=PAD, mask_token=MASK) 
 model = GPT2LMHeadModel.from_pretrained('skt/kogpt2-base-v2')
 

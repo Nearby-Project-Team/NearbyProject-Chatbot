@@ -4,11 +4,11 @@ import torch
 from torch.utils.data import Dataset
 from transformers import PreTrainedTokenizerFast
 
-Q_TKN = "<usr>"
-A_TKN = "<sys>"
+U_TKN = '<usr>'
+S_TKN = '<sys>'
 BOS = '</s>'
-EOS = '</e>'
-MASK = '<mask>'
+EOS = '</s>'
+MASK = '<unused0>'
 SENT = '<unused1>'
 PAD = '<pad>'
 
@@ -25,8 +25,8 @@ class ChatbotDataset(Dataset):
     def __init__(self, chats, max_len=40):  # 데이터셋의 전처리를 해주는 부분
         self._data = chats
         self.max_len = max_len
-        self.q_token = Q_TKN
-        self.a_token = A_TKN
+        self.q_token = U_TKN
+        self.a_token = S_TKN
         self.sent_token = SENT
         self.eos = EOS
         self.mask = MASK
