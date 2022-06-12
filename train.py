@@ -40,7 +40,7 @@ model.train()
 
 learning_rate = 5e-5
 criterion = torch.nn.CrossEntropyLoss(reduction="none")
-optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate, weight_decay=0.01)
 
 num_train_steps = len(train_dataloader) * EPOCH
 num_warmup_steps = int(num_train_steps * 0.1)
@@ -48,8 +48,6 @@ num_warmup_steps = int(num_train_steps * 0.1)
 scheduler = get_cosine_schedule_with_warmup(
             optimizer,
             num_warmup_steps=num_warmup_steps, num_training_steps=num_train_steps)
-
-
 
 print ("start")
 for epoch in range(EPOCH):
