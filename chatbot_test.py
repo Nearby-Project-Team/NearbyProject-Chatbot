@@ -30,7 +30,6 @@ if __name__ == "__main__":
             a = ""
             while 1:
                 tokens = koGPT2_TOKENIZER.encode(U_TKN + q + SENT + '0' + S_TKN + a)
-                print(tokens)
                 input_ids = torch.LongTensor(tokens).unsqueeze(dim=0).to(device=device)
                 pred = model(input_ids)
                 pred = pred.logits
