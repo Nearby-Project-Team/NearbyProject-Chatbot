@@ -8,7 +8,7 @@ Q_TKN = "<usr>"
 A_TKN = "<sys>"
 BOS = '</s>'
 EOS = '</e>'
-MASK = '<unused0>'
+MASK = '<mask>'
 SENT = '<unused1>'
 PAD = '<pad>'
 

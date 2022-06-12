@@ -1,9 +1,6 @@
 import torch
 from transformers import GPT2LMHeadModel
 from transformers import PreTrainedTokenizerFast
-from ChatbotDataset import ChatbotDataset, collate_batch
-from torch.utils.data import DataLoader
-from tqdm import tqdm
 
 Q_TKN = "<usr>"
 A_TKN = "<sys>"
