@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 from transformers import GPT2LMHeadModel
 from transformers import PreTrainedTokenizerFast
+from transformers.optimization import get_cosine_schedule_with_warmup
 from ChatbotDataset import ChatbotDataset, collate_batch
 from torch.utils.data import DataLoader
 from tqdm import tqdm
@@ -17,6 +18,9 @@ SENT = '<unused1>'
 PAD = '<pad>'
 
 MODEL_NAME = "./checkpoint/Nearby-Model-"
+
+EPOCH = 20
+Sneg = -1e18
 
 koGPT2_TOKENIZER = PreTrainedTokenizerFast.from_pretrained("skt/kogpt2-base-v2",
             bos_token=BOS, eos_token=EOS, unk_token='<unk>',
@@ -38,8 +42,14 @@ learning_rate = 5e-5
 criterion = torch.nn.CrossEntropyLoss(reduction="none")
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
-EPOCH = 20
-Sneg = -1e18
+num_train_steps = len(train_dataloader()) * EPOCH
+num_warmup_steps = int(num_train_steps * 0.1)
+
+scheduler = get_cosine_schedule_with_warmup(
+            optimizer,
+            num_warmup_steps=num_warmup_steps, num_training_steps=num_train_steps)
+
+
 
 print ("start")
 for epoch in range(EPOCH):
@@ -62,6 +72,7 @@ for epoch in range(EPOCH):
         # 학습 끝
         optimizer.step()
     
+    scheduler.step()
     if (epoch + 1) % 5 == 0:
         torch.save({
                 'epoch': epoch + 1,
@@ -69,6 +80,6 @@ for epoch in range(EPOCH):
                 'optimizer_state_dict': optimizer.state_dict(),
                 'loss': avg_loss,
                 }, MODEL_NAME + str(epoch + 1) + ".pt")
-        
+    
     print(f"Epoch {epoch + 1}, loss: {avg_loss:.3f}")
 print ("end")
