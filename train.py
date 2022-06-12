@@ -63,7 +63,7 @@ for epoch in range(EPOCH):
     
     if (epoch + 1) % 5 == 0:
         torch.save({
-                'epoch': epoch,
+                'epoch': epoch + 1,
                 'model_state_dict': model.state_dict(),
                 'optimizer_state_dict': optimizer.state_dict(),
                 'loss': avg_loss,
