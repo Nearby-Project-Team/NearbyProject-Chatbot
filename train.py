@@ -34,7 +34,7 @@ train_dataloader = DataLoader(train_set, batch_size=16, num_workers=0, shuffle=T
 model.to(device)
 model.train()
 
-learning_rate = 5e-3
+learning_rate = 5e-5
 criterion = torch.nn.CrossEntropyLoss(reduction="none")
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
