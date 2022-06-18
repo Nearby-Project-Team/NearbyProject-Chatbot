@@ -45,6 +45,7 @@ class ChatbotHandler(BaseHandler):
         a = ""
         while 1 :
             _data = self.preprocess(data)
+            print(_data)
             tokens = self.koGPT2_TOKENIZER.encode(self.U_TKN + _data + self.SENT + '0' + self.S_TKN + a)
             input_ids = torch.LongTensor(tokens).unsqueeze(dim=0)
             model_output = self.inference(input_ids)
