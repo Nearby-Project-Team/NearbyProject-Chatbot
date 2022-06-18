@@ -78,6 +78,7 @@ for epoch in range(EPOCH):
                 'optimizer_state_dict': optimizer.state_dict(),
                 'loss': avg_loss,
                 }, MODEL_NAME + str(epoch + 1) + ".pt")
+        torch.save(model.state_dict(), MODEL_NAME + str(epoch + 1) + ".pth")
     
     print(f"Epoch {epoch + 1}, loss: {avg_loss:.3f}")
 print ("end")
