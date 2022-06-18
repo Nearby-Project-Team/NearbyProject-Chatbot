@@ -36,7 +36,7 @@ class ChatbotHandler(BaseHandler):
         if not os.path.isfile(model_pt_path):
             raise RuntimeError("Missing the model.pt file")
 
-        self.model = torch.load(model_pt_path)
+        self.model = torch.load(model_pt_path, map_location=self.device)
 
         self.initialized = True
     
