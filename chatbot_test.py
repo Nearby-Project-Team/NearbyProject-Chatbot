@@ -34,7 +34,7 @@ if __name__ == "__main__":
                 pred = model(input_ids)
                 pred = pred.logits
                 gen = koGPT2_TOKENIZER.convert_ids_to_tokens(torch.argmax(pred, dim=-1).cpu().squeeze().numpy().tolist())[-1]
-                if gen == EOS:
+                if gen == EOS or len(a) > 60:
                     break
                 a += gen.replace("▁", " ")
             print("Chatbot > {}".format(a.strip()))
