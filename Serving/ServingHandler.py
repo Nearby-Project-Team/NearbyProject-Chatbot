@@ -32,7 +32,7 @@ class ChatbotHandler(BaseHandler):
         if preprocessed_data is None:
             preprocessed_data = data[0].get("body")
 
-        return preprocessed_data
+        return preprocessed_data.decode()
     
     def inference(self, data):
         model_output = self.model.forward(data)
