@@ -67,7 +67,7 @@ class ChatbotHandler(BaseHandler):
             model_output = self.inference(input_ids)
             model_output = model_output.logits
             gen = self.koGPT2_TOKENIZER.convert_ids_to_tokens(torch.argmax(model_output, dim=-1).cpu().squeeze().numpy().tolist())[-1]
-            if gen == self.EOS:
+            if gen == self.EOS or len(a) > 60:
                 break
             a += gen.replace("▁", " ")
         print(a)
