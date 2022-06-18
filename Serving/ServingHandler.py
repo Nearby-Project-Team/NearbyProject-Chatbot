@@ -1,8 +1,7 @@
 import torch
-from transformers import GPT2LMHeadModel
 from transformers import PreTrainedTokenizerFast
-
 from ts.torch_handler.base_handler import BaseHandler
+import os
 
 class ChatbotHandler(BaseHandler):
     def __init__(self):
@@ -22,9 +21,23 @@ class ChatbotHandler(BaseHandler):
         self.koGPT2_TOKENIZER = PreTrainedTokenizerFast.from_pretrained("skt/kogpt2-base-v2",
             bos_token=self.BOS, eos_token=self.EOS, unk_token='<unk>',
             pad_token=self.PAD, mask_token=self.MASK) 
+        
+        self.model = None
     
     def initialize(self, context):
         self._context = context
+        
+        self.manifest = context.manifest
+        properties = context.system_properties
+        model_dir = properties.get("model_dir")
+        self.device = torch.device("cuda:" + str(properties.get("gpu_id")) if torch.cuda.is_available() else "cpu")
+        serialized_file = self.manifest['model']['serializedFile']
+        model_pt_path = os.path.join(model_dir, serialized_file)
+        if not os.path.isfile(model_pt_path):
+            raise RuntimeError("Missing the model.pt file")
+
+        self.model = torch.jit.load(model_pt_path)
+
         self.initialized = True
     
     def preprocess(self, data):
