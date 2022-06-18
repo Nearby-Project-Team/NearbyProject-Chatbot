@@ -70,6 +70,7 @@ class ChatbotHandler(BaseHandler):
             if gen == self.EOS:
                 break
             a += gen.replace("▁", " ")
+        print(a)
         return [self.postprocess(a)]
     
     
