@@ -21,13 +21,13 @@ class Telebot(Resource):
  
     #sendMessage API로 체팅방에 메시지 보내는 함수
     def sendMessage(self, chatId, getText):
-            sendUrl = "{}/sendMessage".format(self.sendUrl)
-            params = {
-                "chat_id" : chatId,
-                "text" : getText
-            }
-            self.s.get(sendUrl, params=params)
-            return None
+        sendUrl = "{}/sendMessage".format(self.sendUrl)
+        params = {
+            "chat_id" : chatId,
+            "text" : getText
+        }
+        self.s.get(sendUrl, params=params)
+        return None
  
 #https://example.com/telebot 경로로 들어오면 Telebot 클래스로 전달
 api.add_resource(Telebot, '/telebot')
