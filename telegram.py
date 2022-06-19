@@ -12,6 +12,7 @@ botToken = os.environ['TOKEN'] ##반드시 본인 챗봇의 토큰을 입력하�
 class Telebot(Resource):
     s = requests.session()
     sendUrl = "https://api.telegram.org/bot{}".format(botToken)
+    chatbotUrl = "http://localhost:8080/predictions/chatbot"
  
     #https://example.com/telebot 경로로 들어온 트레픽중 post메서드를 수신하는 부분
     def post(self):
@@ -22,6 +23,8 @@ class Telebot(Resource):
     #sendMessage API로 체팅방에 메시지 보내는 함수
     def sendMessage(self, chatId, getText):
         sendUrl = "{}/sendMessage".format(self.sendUrl)
+        chat_data = { 'data': getText }
+        self.s.post(self.chatbotUrl, data=chat_data)
         params = {
             "chat_id" : chatId,
             "text" : getText
