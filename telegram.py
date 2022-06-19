@@ -24,10 +24,10 @@ class Telebot(Resource):
     def sendMessage(self, chatId, getText):
         sendUrl = "{}/sendMessage".format(self.sendUrl)
         chat_data = { 'data': getText }
-        self.s.post(self.chatbotUrl, data=chat_data)
+        response = self.s.post(self.chatbotUrl, data=chat_data)
         params = {
             "chat_id" : chatId,
-            "text" : getText
+            "text" : response.content.decode('utf-8')
         }
         self.s.get(sendUrl, params=params)
         return None
