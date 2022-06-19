@@ -33,5 +33,5 @@ class Telebot(Resource):
 api.add_resource(Telebot, '/telebot')
  
 if __name__ == '__main__':    
-    context = ('./certs/fullchain.pem', './certs/privkey.pem') ##반드시 본인 도메인의 인증서를...
+    context = ('/docker/certs/fullchain.pem', '/docker/certs/privkey.pem') ##반드시 본인 도메인의 인증서를...
     application.run(debug = True, host='0.0.0.0', port=8443, threaded=True, ssl_context=context)
