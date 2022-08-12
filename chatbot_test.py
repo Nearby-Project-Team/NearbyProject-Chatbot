@@ -16,7 +16,7 @@ koGPT2_TOKENIZER = PreTrainedTokenizerFast.from_pretrained("skt/kogpt2-base-v2",
             bos_token=BOS, eos_token=EOS, unk_token='<unk>',
             pad_token=PAD, mask_token=MASK) 
 model = GPT2LMHeadModel.from_pretrained('skt/kogpt2-base-v2')
-model_weight = torch.load('./checkpoint/Nearby-Model-5.pt')
+model_weight = torch.load('./checkpoint/Nearby-Model-20.pt')
 model.load_state_dict(model_weight["model_state_dict"])
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.cuda()
