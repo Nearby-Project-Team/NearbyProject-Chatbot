@@ -7,6 +7,11 @@ from tqdm import tqdm
 DATA_PATH = "../ChatData/PlainConversation"
 SNS_LIST = os.listdir(DATA_PATH)
 
+def checkTxtisNan(txt: str):
+    if (type(txt) != type("")) or txt == "":
+        return True
+    return False
+
 if __name__ == "__main__":
 
     data_dir_list = []
@@ -28,7 +33,7 @@ if __name__ == "__main__":
         for i in range(1, N):
             pretxt = conversation[i - 1]["norm_text"] 
             txt = conversation[i]["norm_text"]
-            if (type(txt) != type("")) or (type(pretxt) != type("")):
+            if checkTxtisNan(txt) or checkTxtisNan(pretxt):
                 print(txt, type(txt))
                 print(pretxt, type(pretxt))
                 print(i)
