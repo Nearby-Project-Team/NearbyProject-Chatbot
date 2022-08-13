@@ -19,7 +19,7 @@ PAD = '<pad>'
 
 MODEL_NAME = "./checkpoint/Nearby-Model-"
 
-EPOCH = 20
+EPOCH = 100
 Sneg = -1e18
 
 koGPT2_TOKENIZER = PreTrainedTokenizerFast.from_pretrained("skt/kogpt2-base-v2",
@@ -38,7 +38,7 @@ train_dataloader = DataLoader(train_set, batch_size=16, num_workers=2, shuffle=T
 model.to(device)
 model.train()
 
-learning_rate = 5e-4
+learning_rate = 5e-5
 criterion = torch.nn.CrossEntropyLoss(reduction="none")
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate, weight_decay=0.01)
 
