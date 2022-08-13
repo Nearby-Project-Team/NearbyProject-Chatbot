@@ -28,6 +28,11 @@ if __name__ == "__main__":
         for i in range(1, N):
             pretxt = conversation[i - 1]["norm_text"] 
             txt = conversation[i]["norm_text"]
+            if (type(txt) != type("")) or (type(pretxt) != type("")):
+                print(txt, type(txt))
+                print(pretxt, type(pretxt))
+                print(i)
+                continue 
             dataCSV["Q"].append(pretxt)
             dataCSV["A"].append(txt)
             dataCSV["label"].append(0)
