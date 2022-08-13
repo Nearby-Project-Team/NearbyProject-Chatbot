@@ -8,6 +8,7 @@ from transformers.optimization import get_cosine_schedule_with_warmup
 from ChatbotDataset import ChatbotDataset, collate_batch
 from torch.utils.data import DataLoader
 from tqdm import tqdm
+import glob
 
 U_TKN = '<usr>'
 S_TKN = '<sys>'
@@ -27,11 +28,16 @@ koGPT2_TOKENIZER = PreTrainedTokenizerFast.from_pretrained("skt/kogpt2-base-v2",
             pad_token=PAD, mask_token=MASK) 
 model = GPT2LMHeadModel.from_pretrained('skt/kogpt2-base-v2')
 
-Chatbot_Data = pd.read_csv("ChatBotData.csv")
-Chatbot_Data.head()
+chatdata_dir = glob.glob('./ChatData/*.csv')
+ChatbotData = []
+for chat in chatdata_dir:
+    Chatbot_Data = pd.read_csv(chat)
+    Chatbot_Data.head()
+    ChatbotData.append(Chatbot_Data)
+ChatListData = pd.concat(ChatbotData)
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-train_set = ChatbotDataset(Chatbot_Data, max_len=40)
+train_set = ChatbotDataset(ChatListData, max_len=80)
 #윈도우 환경에서 num_workers 는 무조건 0으로 지정, 리눅스에서는 2
 train_dataloader = DataLoader(train_set, batch_size=16, num_workers=2, shuffle=True, collate_fn=collate_batch,)
 
