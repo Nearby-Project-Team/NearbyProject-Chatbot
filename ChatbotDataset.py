@@ -38,10 +38,12 @@ class ChatbotDataset(Dataset):
     def __getitem__(self, idx):  # 로드한 챗봇 데이터를 차례차례 DataLoader로 넘겨주는 메서드
         turn = self._data.iloc[idx]
         q = turn["Q"]  # 질문을 가져온다.
-        q = re.sub(r"([?.!,])", r" ", q)  # 구둣점들을 제거한다.
+        if type(q) != type(""):
+            print(q, type(q))
+        q = re.sub(r"([?.!,*])", r" ", q)  # 구둣점들을 제거한다.
 
         a = turn["A"]  # 답변을 가져온다.
-        a = re.sub(r"([?.!,])", r" ", a)  # 구둣점들을 제거한다.
+        a = re.sub(r"([?.!,*])", r" ", a)  # 구둣점들을 제거한다.
 
         q_toked = self.tokenizer.tokenize(self.q_token + q + self.sent_token)
         q_len = len(q_toked)
