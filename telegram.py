@@ -36,5 +36,5 @@ class Telebot(Resource):
 api.add_resource(Telebot, '/telebot')
  
 if __name__ == '__main__':    
-    context = ('/etc/letsencrypt/live/nearbot.happyic.tk/fullchain.pem', '/etc/letsencrypt/live/nearbot.happyic.tk/privkey.pem') ##반드시 본인 도메인의 인증서를...
-    application.run(debug = True, host='0.0.0.0', port=88, threaded=True, ssl_context=context)
+    # context = ('/etc/letsencrypt/live/nearbot.happyic.tk/fullchain.pem', '/etc/letsencrypt/live/nearbot.happyic.tk/privkey.pem') ##반드시 본인 도메인의 인증서를...
+    application.run(debug = True, host='0.0.0.0', port=8080, threaded=True)
