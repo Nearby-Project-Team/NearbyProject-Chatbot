@@ -48,7 +48,7 @@ class ChatbotHandler(BaseHandler):
         if preprocessed_data is None:
             preprocessed_data = data[0].get("body")
         print(preprocessed_data)
-        return preprocessed_data["data"]
+        return preprocessed_data.decode('utf-8')
     
     def inference(self, data):
         model_output = self.model.forward(data)
