@@ -12,7 +12,7 @@ botToken = os.environ['TOKEN'] ##반드시 본인 챗봇의 토큰을 입력하�
 class Telebot(Resource):
     s = requests.session()
     sendUrl = "https://api.telegram.org/bot{}".format(botToken)
-    chatbotUrl = "http://localhost:8080/predictions/chatbot"
+    chatbotUrl = "http://localhost:5000/predictions/chatbot"
  
     #https://example.com/telebot 경로로 들어온 트레픽중 post메서드를 수신하는 부분
     def post(self):
@@ -36,5 +36,5 @@ class Telebot(Resource):
 api.add_resource(Telebot, '/telebot')
  
 if __name__ == '__main__':    
-    context = ('/docker/certs/fullchain.pem', '/docker/certs/privkey.pem') ##반드시 본인 도메인의 인증서를...
-    application.run(debug = True, host='0.0.0.0', port=8443, threaded=True, ssl_context=context)
+    context = ('/etc/letsencrypt/live/nearbot.happyic.tk/fullchain.pem', '/etc/letsencrypt/live/nearbot.happyic.tk/privkey.pem') ##반드시 본인 도메인의 인증서를...
+    application.run(debug = True, host='0.0.0.0', port=88, threaded=True, ssl_context=context)

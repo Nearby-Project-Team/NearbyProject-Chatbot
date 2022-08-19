@@ -37,14 +37,14 @@ for chat in chatdata_dir:
 ChatListData = pd.concat(ChatbotData)
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-train_set = ChatbotDataset(ChatListData, max_len=80)
+train_set = ChatbotDataset(ChatListData, max_len=40)
 #윈도우 환경에서 num_workers 는 무조건 0으로 지정, 리눅스에서는 2
 train_dataloader = DataLoader(train_set, batch_size=8, num_workers=2, shuffle=True, collate_fn=collate_batch,)
 
 model.to(device)
 model.train()
 
-learning_rate = 5e-5
+learning_rate = 3e-4
 criterion = torch.nn.CrossEntropyLoss(reduction="none")
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate, weight_decay=0.01)
 

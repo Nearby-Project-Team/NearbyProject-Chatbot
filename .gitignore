@@ -1,1 +1,10 @@
 ChatData/
+certs
+logs
+model
+hello
+checkpoint
+lightning_logs
+.env
+model_backup
+__pycache__/*
