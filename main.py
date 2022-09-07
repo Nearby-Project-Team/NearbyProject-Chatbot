@@ -234,8 +234,7 @@ if __name__ == "__main__":
             verbose=True,
             save_last=True,
             monitor='train_loss',
-            mode='min',
-            prefix='model_'
+            mode='min'
         )
         # python train_torch.py --train --gpus 1 --max_epochs 3
         model = KoGPT2Chat(args)
