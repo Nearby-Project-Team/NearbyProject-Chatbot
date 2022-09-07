@@ -130,7 +130,7 @@ class KoGPT2Chat(LightningModule):
 
         parser.add_argument('--batch-size',
                             type=int,
-                            default=16,
+                            default=32,
                             help='batch size for training (default: 16)')
         parser.add_argument('--lr',
                             type=float,
