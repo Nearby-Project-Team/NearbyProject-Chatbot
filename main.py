@@ -241,7 +241,7 @@ if __name__ == "__main__":
         model.train()
         trainer = Trainer.from_argparse_args(
             args,
-            enable_checkpoint=True,
+            enable_checkpointing=True,
             callbacks=[checkpoint_callback], 
             gradient_clip_val=1.0
         )
