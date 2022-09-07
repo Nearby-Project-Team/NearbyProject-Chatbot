@@ -241,7 +241,10 @@ if __name__ == "__main__":
         model.train()
         trainer = Trainer.from_argparse_args(
             args,
-            checkpoint_callback=checkpoint_callback, gradient_clip_val=1.0)
+            enable_checkpoint=True,
+            callbacks=[checkpoint_callback], 
+            gradient_clip_val=1.0
+        )
         trainer.fit(model)
         logging.info('best model path {}'.format(checkpoint_callback.best_model_path))
     if args.chat:
