@@ -240,7 +240,7 @@ if __name__ == "__main__":
         model = KoGPT2Chat(args)
         model.train()
         trainer = Trainer.from_argparse_args(
-            args,
+            **args,
             enable_checkpointing=True,
             callbacks=[checkpoint_callback], 
             gradient_clip_val=1.0
