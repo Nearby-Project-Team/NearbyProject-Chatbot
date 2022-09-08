@@ -239,8 +239,10 @@ if __name__ == "__main__":
         # python train_torch.py --train --gpus 1 --max_epochs 3
         model = KoGPT2Chat(args)
         model.train()
-        trainer = Trainer.from_argparse_args(
-            **args,
+        trainer = Trainer(
+            devices=args.gpus,
+            accelerator="gpu",
+            
             enable_checkpointing=True,
             callbacks=[checkpoint_callback], 
             gradient_clip_val=1.0
