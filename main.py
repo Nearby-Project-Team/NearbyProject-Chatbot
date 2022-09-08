@@ -114,7 +114,7 @@ class CharDataset(Dataset):
 class KoGPT2Chat(LightningModule):
     def __init__(self, hparams, **kwargs):
         super(KoGPT2Chat, self).__init__()
-        self.hparams.update(dict(hparams))
+        self.save_hyperparameters(hparams)
         self.neg = -1e18
         self.kogpt2 = GPT2LMHeadModel.from_pretrained('skt/kogpt2-base-v2')
         self.loss_function = torch.nn.CrossEntropyLoss(reduction='none')
